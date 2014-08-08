@@ -344,11 +344,11 @@ namespace A2DWebRole1
             DataTable dt = bl.Get_Topics(ForumID);
             lvTopics.DataSource = dt;
             lvTopics.DataBind();
-            lblBreadCrumb_Forum.Text = " / " + dt.Rows[0][2].ToString(); //.ToUpper();
+            lblBreadCrumb_Forum.Text = " / " + dt.Rows[0][2].ToString();
 
             _ForumGUID = dt.Rows[0][1].ToString(); ViewState["_ForumGUID"] = _ForumGUID;
             _ForumName = dt.Rows[0][2].ToString(); ViewState["_ForumName"] = _ForumName;
-            lblBreadCrumb_Forum.Text = " / " + ViewState["_ForumName"]; //.ToUpper();
+            lblBreadCrumb_Forum.Text = " / " + ViewState["_ForumName"];
             phComments.Visible = false;
             tbxComment.Enabled = false;
         }
@@ -399,7 +399,7 @@ namespace A2DWebRole1
             _TopicGUID = dt.Rows[0][1].ToString(); ViewState["_TopicGUID"] = _TopicGUID;
             _TopicName = dt.Rows[0][2].ToString(); ViewState["_TopicName"] = _TopicName;            
 
-            lblBreadCrumb_Forum.Text = " / " + ViewState["_ForumName"] + " / " + ViewState["_TopicName"]; //.ToUpper();
+            lblBreadCrumb_Forum.Text = " / " + ViewState["_ForumName"] + " / " + ViewState["_TopicName"];
         }
 
 
