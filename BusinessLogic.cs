@@ -26,7 +26,7 @@ namespace A2DWebRole1
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = AppConfig.DbConnectionString;
-            SqlCommand cmd = new SqlCommand("sp_GetForum", cn); //
+            SqlCommand cmd = new SqlCommand("sp_GetTopics", cn); //
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ForumID", @ForumID);
             DataTable table = DataAccess.ExecuteSelectCommand(cmd);
