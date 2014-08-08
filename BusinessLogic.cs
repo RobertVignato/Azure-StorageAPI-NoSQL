@@ -10,6 +10,18 @@ namespace A2DWebRole1
 {
     public class BusinessLogic
     {
+
+        internal DataTable Get_FullName(Guid userGUID)
+        {
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = AppConfig.DbConnectionString;
+            SqlCommand cmd = new SqlCommand("sp_GetFullNameForUserGUID", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserGUID", userGUID);
+            DataTable table = DataAccess.ExecuteSelectCommand(cmd);
+            return table;
+        }
+
         internal DataTable Get_Topics(int ForumID)
         {
             SqlConnection cn = new SqlConnection();
@@ -33,6 +45,39 @@ namespace A2DWebRole1
                 "ORDER BY Topics.TopicName";
 
             cmd.Parameters.AddWithValue("@ForumID", ForumID);
+            DataTable table = DataAccess.ExecuteSelectCommand(cmd);
+            return table;
+        }
+
+        internal DataTable Get_Topic(string TopicGUID)
+        {
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = AppConfig.DbConnectionString;
+            SqlCommand cmd = cn.CreateCommand();
+
+            cmd.CommandText = "SELECT " +
+                "TopicID " +
+                ", TopicGUID " +
+                ", TopicName " +
+                "FROM Topics " +
+                "WHERE (TopicGUID = @TopicGUID)";
+
+            cmd.Parameters.AddWithValue("@TopicGUID", TopicGUID);
+            DataTable table = DataAccess.ExecuteSelectCommand(cmd);
+            return table;
+        }
+
+        internal DataTable Get_Forums(int ForumID)
+        {
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = AppConfig.DbConnectionString;
+            SqlCommand cmd = cn.CreateCommand();
+
+            cmd.CommandText = "SELECT " +
+                "ForumID " +
+                ", ForumName " +
+                "FROM Forums";
+
             DataTable table = DataAccess.ExecuteSelectCommand(cmd);
             return table;
         }
