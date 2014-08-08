@@ -26,25 +26,9 @@ namespace A2DWebRole1
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = AppConfig.DbConnectionString;
-            SqlCommand cmd = cn.CreateCommand();
-
-            cmd.CommandText = "SELECT " +
-                "Forums.ForumID " + // 0
-                ", Forums.ForumGUID " + // 1
-                ", Forums.ForumName " + // 2
-                ", Topics.TopicID " + // 3
-                ", Topics.TopicGUID " + // 4 
-                ", Topics.TopicName " + // 5
-                "FROM Forums  " +
-                "INNER JOIN Topics ON Forums.ForumID = Topics.ForumID " +
-                "WHERE (Topics.IsActive = 1)  " +
-                "AND (Topics.IsVisible = 1)  " +
-                "AND (Forums.IsActive = 1)  " +
-                "AND (Forums.IsVisible = 1)  " +
-                "AND (Forums.ForumID = @ForumID) " +
-                "ORDER BY Topics.TopicName";
-
-            cmd.Parameters.AddWithValue("@ForumID", ForumID);
+            SqlCommand cmd = new SqlCommand("sp_GetForum", cn); //
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ForumID", @ForumID);
             DataTable table = DataAccess.ExecuteSelectCommand(cmd);
             return table;
         }
@@ -53,31 +37,19 @@ namespace A2DWebRole1
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = AppConfig.DbConnectionString;
-            SqlCommand cmd = cn.CreateCommand();
-
-            cmd.CommandText = "SELECT " +
-                "TopicID " +
-                ", TopicGUID " +
-                ", TopicName " +
-                "FROM Topics " +
-                "WHERE (TopicGUID = @TopicGUID)";
-
-            cmd.Parameters.AddWithValue("@TopicGUID", TopicGUID);
+            SqlCommand cmd = new SqlCommand("sp_GetTopic", cn); //
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TopicGUID", @TopicGUID);
             DataTable table = DataAccess.ExecuteSelectCommand(cmd);
             return table;
         }
 
-        internal DataTable Get_Forums(int ForumID)
+        internal DataTable Get_Forums()
         {
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = AppConfig.DbConnectionString;
-            SqlCommand cmd = cn.CreateCommand();
-
-            cmd.CommandText = "SELECT " +
-                "ForumID " +
-                ", ForumName " +
-                "FROM Forums";
-
+            SqlCommand cmd = new SqlCommand("sp_GetForumns", cn); //
+            cmd.CommandType = CommandType.StoredProcedure;
             DataTable table = DataAccess.ExecuteSelectCommand(cmd);
             return table;
         }
