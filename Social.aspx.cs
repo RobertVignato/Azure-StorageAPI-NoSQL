@@ -308,7 +308,7 @@ namespace A2DWebRole1
             Uri TheWholeUrl = Request.Url;
             eMsg.Url = TheWholeUrl.ToString(); // Get the URL of the Webpage where the attack was attempted.
             eMsg.InjectionString = injectionString;
-            //eMsg.SendEmail_ToAdmins("SQLInjectionAttempt! Jumbuh SignUp");
+            //eMsg.SendEmail_ToAdmins("SQLInjectionAttempt!");
         }
 
 
